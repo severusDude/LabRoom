@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id');
             $table->foreignIdFor(Lab::class);
             $table->foreignIdFor(User::class);
-            $table->foreignIdFor(Subject::class);
+            $table->foreignIdFor(Subject::class)->default(1);
             $table->dateTime('effect_date');
             $table->dateTime('end_date');
             $table->boolean('repeat')->default(false);

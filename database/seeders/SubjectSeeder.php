@@ -13,6 +13,7 @@ class SubjectSeeder extends Seeder
      */
     public function run(): void
     {
+        Subject::create(['name' => 'Lainnya']);
         Subject::create(['name' => 'Rekayasa Perangkat Lunak']);
         Subject::create(['name' => 'Pemrograman Berbasis Objek']);
         Subject::create(['name' => 'Statistika dan Probabilitas']);
