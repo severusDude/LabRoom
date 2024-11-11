@@ -1,5 +1,6 @@
 <?php
 
+use App\Filament\Resources\LabResource\Pages\LabDetails;
 use App\Livewire\ShowDataLab;
 use Illuminate\Support\Facades\Route;
 
@@ -15,4 +16,4 @@ Route::view('profile', 'profile')
 
 Route::get('admin/kelola-laboratorium/detail/{id}', ShowDataLab::class)->name('data.lab.show');
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

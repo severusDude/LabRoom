@@ -7,6 +7,7 @@ use App\Filament\Resources\LabResource\Pages\CreateLab;
 use App\Filament\Resources\LabResource\RelationManagers;
 use App\Models\Lab;
 use Closure;
+use Filament\Facades\Filament;
 use Filament\Forms;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
@@ -24,13 +25,8 @@ use Illuminate\Support\Str;
 class LabResource extends Resource
 {
     protected static ?string $model = Lab::class;
-
-    // icon navigation
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-
-    // url / slug
     protected static ?string $slug = "kelola-laboratorium";
-    // title
     protected static ?string $label = "Data Lab";
     protected static ?string $navigationGroup = "Kelola";
     protected static ?string $navigationLabel = 'Kelola Laboratorium';
@@ -65,12 +61,14 @@ class LabResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\Action::make("view")
-                    // ->label("View")
-                    ->url(fn($record) => route("data.lab.show", $record->id))
-                    ->color("ghost")
-                    ->icon('heroicon-o-chevron-right'),
-
+                Tables\Actions\Action::make('detail')
+                    ->color("accent")
+                    ->label('Details')
+                    ->icon('heroicon-o-chevron-right')
+                    //? record merupakan data dari database berdasarkan item yang dipilih
+                    //* labId merupakan parameter dynamic dari route 'detail' => Pages\LabDetails::route('/{labId}/detail-lab'),
+                    ->url(fn($record) => route('filament.admin.resources.kelola-laboratorium.detail', ['record' => $record->id]))
+                    ->openUrlInNewTab(false),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
 
@@ -78,7 +76,7 @@ class LabResource extends Resource
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                ])->label("Action"),
             ]);
     }
 
@@ -95,6 +93,7 @@ class LabResource extends Resource
             'index' => Pages\ListLabs::route('/'),
             'create' => Pages\CreateLab::route('/create'),
             'edit' => Pages\EditLab::route('/{record}/edit'),
+            'detail' => Pages\LabDetails::route('/{record}/detail-lab'),
         ];
     }
 }
