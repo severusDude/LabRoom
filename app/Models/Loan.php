@@ -9,10 +9,14 @@ class Loan extends Model
 {
     use HasFactory;
 
-    protected $guard = [
-        'id',
-        'created_at',
-        'updated_at',
+    protected $fillable = [
+        'lab_id',
+        'created_by',
+        'subject_id',
+        'effect_date',
+        'end_date',
+        'is_repeat',
+        'report'
     ];
 
     public function lab()
@@ -35,25 +39,12 @@ class Loan extends Model
         return $this->belongsTo(Subject::class);
     }
 
-    public static function booted(): void
+    protected static function booted(): void
     {
-        static::creating(function (Loan $loan) {
-            // get lab id
-            $lab_id = $loan->lab_id;
-
-            // current lab id count
-            $current_id = self::where('lab_id', $lab_id)->withTrashed()->count();
-            $new_id = $current_id ? $current_id + 1 : 1;
-
-            // set new_id for id
-            $loan->id = $new_id;
-        });
 
         //creating approval that linked to this loan
         static::created(function (Loan $loan) {
-            Approval::create([
-                'loan_id' => $loan->id,
-            ]);
+            Approval::create(['loan_id' => $loan->id]);
         });
     }
 }

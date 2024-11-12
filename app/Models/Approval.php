@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Approval extends Model
 {
     protected $fillable = [
+        'loan_id',
         'approval_status',
     ];
 
