@@ -15,18 +15,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('loans', function (Blueprint $table) {
-            $table->unsignedBigInteger('id');
+            $table->id();
             $table->foreignIdFor(Lab::class);
-            $table->foreignIdFor(User::class);
+            $table->foreignId('created_by')->constrained('users', 'id');
             $table->foreignIdFor(Subject::class)->default(1);
-            $table->dateTime('effect_date');
-            $table->dateTime('end_date');
-            $table->boolean('repeat')->default(false);
-            $table->foreignId('approval_by')->constrained('users', 'id');
-            $table->text('report')->default('');
+            $table->dateTime('effect_date')->default(now());
+            $table->dateTime('end_date')->default(now()->addHour());
+            $table->boolean('is_repeat')->default(false);
+            $table->text('report')->default('Laporan Aktivitas');
             $table->timestamps();
-
-            $table->unique(['lab_id', 'id']);
         });
     }
 

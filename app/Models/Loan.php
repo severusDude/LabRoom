@@ -14,18 +14,14 @@ class Loan extends Model
         return $this->belongsTo(Lab::class);
     }
 
-    public function created_by()
+    public function user()
     {
-        return $this->belongsTo(User::class)->whereHas('roles', function ($query) {
-            $query->where('name', 'standard');
-        });
+        return $this->belongsTo(User::class, 'created_by');
     }
 
-    public function approval_by()
+    public function approval()
     {
-        return $this->belongsTo(User::class)->whereHas('roles', function ($query) {
-            $query->where('name', 'admin');
-        });
+        return $this->hasOne(Approval::class);
     }
 
     public function subject()
@@ -45,6 +41,13 @@ class Loan extends Model
 
             // set new_id for id
             $loan->id = $new_id;
+        });
+
+        //creating approval that linked to this loan
+        static::created(function (Loan $loan) {
+            Approval::create([
+                'loan_id' => $loan->id,
+            ]);
         });
     }
 }
