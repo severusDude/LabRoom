@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Approval extends Model
 {
+    protected $fillable = [
+        'approval_status',
+    ];
+
     public function loan()
     {
         return $this->belongsTo(Loan::class);
