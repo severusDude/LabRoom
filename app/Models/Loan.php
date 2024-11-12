@@ -2,14 +2,35 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Loan extends Model
 {
+    use HasFactory;
 
     public function lab()
     {
         return $this->belongsTo(Lab::class);
+    }
+
+    public function created_by()
+    {
+        return $this->belongsTo(User::class)->whereHas('roles', function ($query) {
+            $query->where('name', 'standard');
+        });
+    }
+
+    public function approval_by()
+    {
+        return $this->belongsTo(User::class)->whereHas('roles', function ($query) {
+            $query->where('name', 'admin');
+        });
+    }
+
+    public function subject()
+    {
+        return $this->belongsTo(Subject::class);
     }
 
     public static function booted(): void
