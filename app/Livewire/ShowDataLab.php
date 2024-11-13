@@ -40,10 +40,6 @@ class ShowDataLab extends Component
         // ]);
 
 
-        return view('livewire.show-data-lab')
-            ->layout('components.layouts.app', [
-                'title' => 'Detail Data Lab',
-                'content' => $this->data,
-            ]);
+        return view('livewire.show-data-lab');
     }
 }
