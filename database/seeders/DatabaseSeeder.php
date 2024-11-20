@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             LabSeeder::class,
             SubjectSeeder::class,
+            LoanSeeder::class,
         ]);
     }
 }
