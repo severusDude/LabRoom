@@ -3,24 +3,22 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\LoanResource\Pages;
-use App\Filament\Resources\LoanResource\RelationManagers;
-use App\Models\Lab;
 use App\Models\Loan;
-use App\Models\Subject;
-use App\Models\User;
+use Carbon\Carbon;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class LoanResource extends Resource
 {
     protected static ?string $model = Loan::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-calendar-days';
+
+    protected static ?string $navigationGroup = "Kelola";
+    protected static ?string $navigationLabel = 'Kelola Peminjaman';
 
     public static function form(Form $form): Form
     {
@@ -65,10 +63,34 @@ class LoanResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Peminjam'),
                 Tables\Columns\TextColumn::make('subject.name'),
+                Tables\Columns\TextColumn::make("Tanggal")
+                    ->getStateUsing(function (Loan $record) {
+                        $formated = Carbon::parse($record->effect_date)->translatedFormat('l, d F');
+                        return $formated;
+                    }),
                 Tables\Columns\TextColumn::make('effect_date')
-                    ->dateTime(),
-                Tables\Columns\TextColumn::make('end_date')
-                    ->dateTime(),
+                    ->getStateUsing(function (Loan $record) {
+                        // Parsing tanggal menggunakan Carbon
+                        $startDate = Carbon::parse($record->effect_date);
+                        $endDate = Carbon::parse($record->end_date);
+
+                        // Mengambil bagian waktu saja (jam:menit:detik)
+                        $startTime = $startDate->format('H:i:s');
+                        $endTime = $endDate->format('H:i:s');
+
+                        // Mengembalikan format waktu
+                        return "{$startTime} - {$endTime}";
+                    })
+                    ->label("Waktu"),
+                Tables\Columns\TextColumn::make("Durasi")
+                    ->getStateUsing(function (Loan $record) {
+                        $startDate = Carbon::parse($record->effect_date);
+                        $endDate = Carbon::parse($record->end_date);
+
+                        $hoursDifference = $startDate->diffInHours($endDate);
+
+                        return "{$hoursDifference} Jam";
+                    }),
                 Tables\Columns\IconColumn::make('is_repeat')
                     ->boolean()
                     ->label('Berulang'),
