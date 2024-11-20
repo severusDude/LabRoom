@@ -2,14 +2,16 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\LoanResource\Pages;
-use App\Models\Loan;
 use Carbon\Carbon;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
+use App\Models\Loan;
 use Filament\Tables;
+use Filament\Forms\Get;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use App\Filament\Resources\LoanResource\Pages;
+use Filament\Forms\Set;
 
 class LoanResource extends Resource
 {
@@ -22,8 +24,72 @@ class LoanResource extends Resource
 
     public static function form(Form $form): Form
     {
+        $now = now();
+        $minDate = Carbon::instance($now)->clone();
+        $maxDate = Carbon::instance($now)->clone()->endOfMonth();
+
         return $form
             ->schema([
+                // Forms\Components\DatePicker::make('date')
+                //     ->native(false)
+                //     ->label('Date')
+                //     ->required()
+                //     ->default($now)
+                //     ->minDate($minDate)
+                //     ->maxDate($maxDate),
+
+                // Forms\Components\TimePicker::make('start_time')
+                //     ->native(false)
+                //     ->prefix('Start')
+                //     ->label('Start Time')
+                //     ->displayFormat('H:i')
+                //     ->required()
+                //     ->minutesStep(30) // 30-minute steps
+                //     ->live() // Allows dynamic updates
+                //     ->afterStateUpdated(function ($state, Get $get, Set $set) {
+                //         $date = date("Y-m-d", strtotime($get('date')));
+                //         $state = date("H:i", strtotime($state));
+                //         $startDateTime = Carbon::parse("$date $state");
+
+                //         $set('end_time', $startDateTime->clone()
+                //             ->addHours((int)$get('duration') ?: 1)->format('H:i'));
+                //     }),
+
+                // Forms\Components\TextInput::make('duration')
+                //     ->label('Duration (in hours)')
+                //     ->numeric()
+                //     ->step(0.5) // 30 minutes = 0.5 hour step
+                //     ->requiredWith(['start_time']) // Required if start_time is selected
+                //     ->live(),
+                // // ->afterStateUpdated(function ($state, Get $get, Set $set) {
+                // //     $end_time = Carbon::parse($get('start_time'))->addHours($state);
+
+                // //     $set('end_time', $end_time);
+                // // }),
+
+                // Forms\Components\TimePicker::make('end_time')
+                //     ->native(false)
+                //     ->prefix('End')
+                //     ->label('End Time')
+                //     ->displayFormat('H:i')
+                //     ->minutesStep(30)
+                //     ->requiredWith(['start_time'])
+                //     ->live(),
+                // // ->afterStateUpdated(function ($state, Get $get, Set $set) {
+                // //     $date = $get('date');
+                // //     $start_time = $get('start_time');
+
+                // //     $startDateTime = Carbon::parse("{$date} {$start_time}");
+                // //     $endDateTime = Carbon::parse("{$date} {$state}");
+
+                // //     $set('effect_date', $startDateTime);
+                // //     $set('end_date', $endDateTime);
+                // // }),
+
+                // Forms\Components\Hidden::make('effect_date'), // Auto-filled field
+                // Forms\Components\Hidden::make('end_date'), // Auto-filled field
+
+
                 Forms\Components\Select::make('lab_id')
                     ->relationship('lab', 'lab_name')
                     ->preload()
@@ -40,11 +106,15 @@ class LoanResource extends Resource
                     ->searchable()
                     ->default(1)
                     ->required(),
-                Forms\Components\DateTimePicker::make('effect_date')
+                Forms\Components\DateTimePicker::make('Mulai')
+                    ->id('effect_date')
                     ->default(now())
                     ->required(),
                 Forms\Components\DateTimePicker::make('end_date')
                     ->default(now()->addHour())
+                    ->minDate(function (Get $get) {
+                        return $get('effect_date') ?: now()->addHour();
+                    })
                     ->required(),
                 Forms\Components\Toggle::make('is_repeat')
                     ->label('Berulang')
@@ -63,25 +133,24 @@ class LoanResource extends Resource
                 Tables\Columns\TextColumn::make('user.name')
                     ->label('Peminjam'),
                 Tables\Columns\TextColumn::make('subject.name'),
-                Tables\Columns\TextColumn::make("Tanggal")
+                Tables\Columns\TextColumn::make("Waktu")
                     ->getStateUsing(function (Loan $record) {
-                        $formated = Carbon::parse($record->effect_date)->translatedFormat('l, d F');
-                        return $formated;
-                    }),
-                Tables\Columns\TextColumn::make('effect_date')
-                    ->getStateUsing(function (Loan $record) {
+                        $formatted = Carbon::parse($record->effect_date)->translatedFormat('l, d F');
+
                         // Parsing tanggal menggunakan Carbon
                         $startDate = Carbon::parse($record->effect_date);
                         $endDate = Carbon::parse($record->end_date);
 
                         // Mengambil bagian waktu saja (jam:menit:detik)
-                        $startTime = $startDate->format('H:i:s');
-                        $endTime = $endDate->format('H:i:s');
+                        $startTime = $startDate->format('H:i');
+                        $endTime = $endDate->format('H:i');
 
-                        // Mengembalikan format waktu
-                        return "{$startTime} - {$endTime}";
+                        $time = "{$startTime} - {$endTime}";
+
+                        return compact('formatted', 'time');
                     })
-                    ->label("Waktu"),
+                    ->alignCenter()
+                    ->listWithLineBreaks(),
                 Tables\Columns\TextColumn::make("Durasi")
                     ->getStateUsing(function (Loan $record) {
                         $startDate = Carbon::parse($record->effect_date);
@@ -93,8 +162,15 @@ class LoanResource extends Resource
                     }),
                 Tables\Columns\IconColumn::make('is_repeat')
                     ->boolean()
-                    ->label('Berulang'),
-                Tables\Columns\TextColumn::make('approval.approved_by'),
+                    ->label('Berulang')
+                    ->alignCenter(),
+                Tables\Columns\TextColumn::make('approval.approval_status')
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'Pending' => 'warning',
+                        'Approved' => 'success',
+                        'Rejected' => 'danger'
+                    }),
             ])
             ->filters([
                 //
