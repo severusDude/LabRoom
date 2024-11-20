@@ -21,6 +21,10 @@ class LoanFactory extends Factory
     public function definition(): array
     {
         $effect_date = fake()->dateTimeBetween(now(), now()->endOfMonth());
+
+        // Snap to the nearest 30-minute interval
+        $effect_date = Carbon::instance($effect_date)->setMinutes(floor($effect_date->format('i') / 30) * 30)->setSeconds(0);
+
         $end_date = Carbon::instance($effect_date)->addHours(rand(1, 4));
         $created_by = User::query()->whereHas('roles', function ($query) {
             $query->where('name', 'standard');
