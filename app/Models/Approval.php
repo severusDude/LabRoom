@@ -11,6 +11,20 @@ class Approval extends Model
         'approval_status',
     ];
 
+    public function reject_loan()
+    {
+        $this->approved_by = auth()->user()->id;
+        $this->approval_status = 'Rejected';
+        $this->save();
+    }
+
+    public function approve_loan()
+    {
+        $this->approved_by = auth()->user()->id;
+        $this->approval_status = 'Approved';
+        $this->save();
+    }
+
     public function loan()
     {
         return $this->belongsTo(Loan::class);

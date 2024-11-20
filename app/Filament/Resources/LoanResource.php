@@ -7,11 +7,13 @@ use Filament\Forms;
 use App\Models\Loan;
 use Filament\Tables;
 use Filament\Forms\Get;
+use Filament\Forms\Set;
 use Filament\Forms\Form;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Support\Enums\ActionSize;
+use Illuminate\Database\Eloquent\Collection;
 use App\Filament\Resources\LoanResource\Pages;
-use Filament\Forms\Set;
 
 class LoanResource extends Resource
 {
@@ -127,7 +129,8 @@ class LoanResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('id')
-                    ->label('ID'),
+                    ->label('ID')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('lab.lab_name')
                     ->label('Nama Lab'),
                 Tables\Columns\TextColumn::make('user.name')
@@ -150,7 +153,8 @@ class LoanResource extends Resource
                         return compact('formatted', 'time');
                     })
                     ->alignCenter()
-                    ->listWithLineBreaks(),
+                    ->listWithLineBreaks()
+                    ->sortable(query: fn($query, $direction) => $query->orderBy('effect_date', $direction)),
                 Tables\Columns\TextColumn::make("Durasi")
                     ->getStateUsing(function (Loan $record) {
                         $startDate = Carbon::parse($record->effect_date);
@@ -176,13 +180,46 @@ class LoanResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\Action::make('reject')
+                    ->label('Reject')
+                    ->button()
+                    ->outlined()
+                    ->color('danger')
+                    ->size(ActionSize::Small)
+                    ->visible(fn(Loan $record) => $record->approval->approval_status == 'Pending')
+                    ->action(fn(Loan $record) => $record->approval->reject_loan()),
+                Tables\Actions\Action::make('approve')
+                    ->label('Approve')
+                    ->button()
+                    ->color('success')
+                    ->size(ActionSize::Small)
+                    ->visible(fn(Loan $record) => $record->approval->approval_status == 'Pending')
+                    ->action(fn(Loan $record) => $record->approval->approve_loan()),
+                // Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
-            ]);
+                    Tables\Actions\BulkAction::make('bulk_approve')
+                        ->label('Setujui Permintaan')
+                        ->deselectRecordsAfterCompletion()
+                        ->requiresConfirmation()
+                        ->action(fn(Collection $records) => $records->each(
+                            fn(Loan $record) => $record->approval->approve_loan()
+                        )),
+                    Tables\Actions\BulkAction::make('bulk_reject')
+                        ->label('Tolak Permintaan')
+                        ->requiresConfirmation()
+                        ->deselectRecordsAfterCompletion()
+                        ->action(fn(Collection $records) => $records->each(
+                            fn(Loan $record) => $record->approval->reject_loan()
+                        )),
+                ])->label('Persetujuan'),
+                Tables\Actions\DeleteBulkAction::make(),
+            ])
+            ->checkIfRecordIsSelectableUsing(
+                fn(Loan $record): bool => $record->approval->approval_status == 'Pending'
+            )
+            ->selectCurrentPageOnly();
     }
 
     public static function getRelations(): array
