@@ -17,6 +17,7 @@ Route::middleware(["auth", 'verified'])->group(function () {
     Route::view('profile', 'profile')->name("profile");
     Route::get("user/home", Home::class)->name("user.home");
     Route::get("user/loan", LoanUser::class)->name("user.loan");
+    Route::get("user/loan/{id}", LoanUser::class);
 });
 
 

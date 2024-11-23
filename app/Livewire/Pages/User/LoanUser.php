@@ -2,22 +2,102 @@
 
 namespace App\Livewire\Pages\User;
 
-use Livewire\Attributes\On;
+use App\Models\Lab;
+use App\Models\Loan;
+use App\Models\Subject;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
 class LoanUser extends Component
 {
-    public $receivedData;
+    public $isSubmitting = false;
+    public $lab;
+    public $labs;
+    public $id;
+    public $mata_kuliah;
+    public $jam;
+    public $user;
 
-    #[On("data-sent")]
-    public function handleData($data)
+    public $labInput;
+    public $mataKuliahInput;
+    public $tanggalInput;
+    public $jamMulaiInput = null;
+    public $jamBerakhirInput = null;
+    public $formattedJamMulai;
+    public $formattedJamBerakhir;
+
+    public function mount($id = null)
     {
-        dd('Menerima event data-sent', $data); // Debugging
-        $this->receivedData = $data['data'] ?? 'Tidak ada data yang diterima';
+        $this->id = $id;
+        $this->lab = Lab::find($id);
+        $this->labs = Lab::all();
+        $this->mata_kuliah = Subject::all();
+
+
+        $this->jam = [
+            [
+                'value' => '07:00'
+            ],
+            [
+                'value' => '08:00'
+            ],
+            [
+                'value' => '09:00'
+            ],
+            [
+                'value' => '10:00'
+            ],
+            [
+                'value' => '11:00'
+            ],
+            [
+                'value' => '12:00'
+            ],
+            [
+                'value' => '13:00'
+            ],
+            [
+                'value' => '14:00'
+            ],
+            [
+                'value' => '15:00'
+            ],
+            [
+                'value' => '16:00'
+            ],
+            [
+                'value' => '17:00'
+            ]
+        ];
+
+        $this->user = Auth::id();
+    }
+
+    public function onSubmit()
+    {
+        $this->isSubmitting = true;
+        $dateMulai = $this->tanggalInput . " " . $this->jamMulaiInput;
+        $dateBerakhir = $this->tanggalInput . " " . $this->jamBerakhirInput;
+
+        $this->formattedJamMulai = Carbon::parse($dateMulai)->toDateTimeString();
+        $this->formattedJamBerakhir = Carbon::parse($dateBerakhir)->toDateTimeString();
+
+        Loan::create([
+            'lab_id' => $this->labInput,
+            'created_by' => $this->user,
+            'subject_id' => $this->mataKuliahInput,
+            'effect_date' => $this->formattedJamMulai,
+            'end_date' => $this->formattedJamBerakhir,
+        ]);
+
+        $this->isSubmitting = false; // Setelah selesai submit
+
+        session()->flash('message', 'Permohonan Peminjaman Berhasil di kirim!');
     }
 
     public function render()
     {
-        return view('livewire.pages.user.loan-user', ['data' => $this->receivedData]);
+        return view('livewire.pages.user.loan-user',);
     }
 }

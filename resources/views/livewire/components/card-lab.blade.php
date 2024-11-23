@@ -25,7 +25,7 @@
 
         {{-- Button start --}}
         <div>
-            <button wire:click="sendDataToLoanPage"
+            <button wire:click="redirectTo({{ $id }})"
                 class="py-2 px-4 rounded bg-emerald-500 w-full font-semibold flex items-center justify-center gap-2 hover:bg-emerald-500/60">
                 <h2>Pinjam</h2>
                 <x-heroicon-o-plus class="h-5 w-5 text-white" />

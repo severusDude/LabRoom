@@ -1,4 +1,4 @@
-<nav class="w-[314px] min-h-screen bg-[#4CC9FE] px-[50px] pt-[25px] flex flex-col fixed">
+<nav class="w-[314px] min-h-screen bg-[#035B89] px-[50px] pt-[25px] flex flex-col fixed">
     <div>
         <h1 class="text-[40px] text-white mx-auto">LAB-ROOM</h1>
     </div>

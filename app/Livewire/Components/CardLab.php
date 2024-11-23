@@ -21,10 +21,15 @@ class CardLab extends Component
         $this->data = $lab->lab_name;
     }
 
+    public function redirectTo($id)
+    {
+        return redirect("/user/loan/$id");
+    }
+
     public function sendDataToLoanPage()
     {
         $this->dispatch("data-sent", ['data' => $this->data]);
-        return redirect()->route('user.test');
+        return redirect()->route('user.loan');
     }
 
     public function render()
