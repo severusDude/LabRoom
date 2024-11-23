@@ -16,24 +16,24 @@ class ShieldSeeder extends Seeder
             [
                 'name' => 'superadmin',
                 'guard_name' => 'web',
-                'permissions' => array(
+                'permissions' => [
                     'view_role',
                     'view_any_role',
                     'create_role',
                     'update_role',
                     'delete_role',
-                    'delete_any_role',
-                )
+                    'delete_any_role'
+                ]
             ],
             [
                 'name' => 'admin',
                 'guard_name' => 'web',
-                'permissions' => array()
+                'permissions' => []
             ],
             [
                 'name' => 'standard',
                 'guard_name' => 'web',
-                'permissions' => array()
+                'permissions' => []
             ],
         );
 

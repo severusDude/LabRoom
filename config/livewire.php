@@ -38,6 +38,7 @@ return [
     |
     */
 
+
     // 'layout' => 'components.layouts.app',
     'layout' => 'components.layouts.base',
 

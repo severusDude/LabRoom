@@ -1,8 +1,11 @@
 <?php
 
+use App\Filament\Resources\LabResource\Pages\LabDetails;
+
 use App\Livewire\Pages\User\Home;
 use App\Livewire\Pages\User\LabDetail;
 use App\Livewire\Pages\User\LoanUser;
+
 use App\Livewire\ShowDataLab;
 use Illuminate\Support\Facades\Route;
 
@@ -18,6 +21,9 @@ Route::middleware(["auth", 'verified'])->group(function () {
     Route::get("user/home", Home::class)->name("user.home");
     Route::get("lab/{slug}", LabDetail::class);
 });
+
+
+Route::get('admin/kelola-laboratorium/detail/{id}', ShowDataLab::class)->name('data.lab.show');
 
 
 
