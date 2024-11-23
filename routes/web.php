@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Pages\User\Home;
+use App\Livewire\Pages\User\LabDetail;
 use App\Livewire\Pages\User\LoanUser;
 use App\Livewire\ShowDataLab;
 use Illuminate\Support\Facades\Route;
@@ -8,14 +9,14 @@ use Illuminate\Support\Facades\Route;
 // redirect
 Route::redirect("/", 'user/home');
 
-
-Route::middleware(["auth", 'verified'])->group(function(){
+Route::middleware(["auth", 'verified'])->group(function () {
     // bawaan
     Route::view('dashboard', 'dashboard')->name("dashboard");
     Route::view('profile', 'profile')->name("profile");
 
     Route::get("user/loan", LoanUser::class)->name("user.loan");
     Route::get("user/home", Home::class)->name("user.home");
+    Route::get("lab/{slug}", LabDetail::class);
 });
 
 
