@@ -12,14 +12,34 @@ class ShieldSeeder extends Seeder
     {
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
-        $rolesWithPermissions = '[
-        {"name":"superadmin","guard_name":"web","permissions":["view_role","view_any_role","create_role","update_role","delete_role","delete_any_role"]},
-        {"name":"admin","guard_name":"web","permissions":[]},
-        {"name":"standard","guard_name":"web","permissions":[]}
-        ]';
+        $rolesWithPermissions = array(
+            [
+                'name' => 'superadmin',
+                'guard_name' => 'web',
+                'permissions' => [
+                    'view_role',
+                    'view_any_role',
+                    'create_role',
+                    'update_role',
+                    'delete_role',
+                    'delete_any_role'
+                ]
+            ],
+            [
+                'name' => 'admin',
+                'guard_name' => 'web',
+                'permissions' => []
+            ],
+            [
+                'name' => 'standard',
+                'guard_name' => 'web',
+                'permissions' => []
+            ],
+        );
+
         $directPermissions = '[]';
 
-        static::makeRolesWithPermissions($rolesWithPermissions);
+        static::makeRolesWithPermissions(json_encode($rolesWithPermissions));
         static::makeDirectPermissions($directPermissions);
 
         $this->command->info('Shield Seeding Completed.');
