@@ -38,8 +38,9 @@ return [
     |
     */
 
-    'layout' => 'components.layouts.app',
-    // 'layout' => 'filament::components.layout.index',
+
+    // 'layout' => 'components.layouts.app',
+    'layout' => 'components.layouts.base',
 
     /*
     |---------------------------------------------------------------------------
