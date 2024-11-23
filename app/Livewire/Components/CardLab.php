@@ -10,6 +10,7 @@ class CardLab extends Component
     public $lab;
     public $slug;
     public $id;
+    public $data;
 
 
     public function mount($lab)
@@ -17,6 +18,13 @@ class CardLab extends Component
         $this->lab = $lab;
         $this->slug = Str::slug($lab->lab_name);
         $this->id = $lab->id;
+        $this->data = $lab->lab_name;
+    }
+
+    public function sendDataToLoanPage()
+    {
+        $this->dispatch("data-sent", ['data' => $this->data]);
+        return redirect()->route('user.test');
     }
 
     public function render()
