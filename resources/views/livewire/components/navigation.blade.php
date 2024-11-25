@@ -10,6 +10,9 @@
             <x-custom.item-navigation :icon="'heroicon-o-calendar-date-range'" :active="request()->routeIs('user.loan')" href="{{ route('user.loan') }}">
                 Peminjaman
             </x-custom.item-navigation>
+            <x-custom.item-navigation :icon="'heroicon-o-archive-box'" :active="request()->routeIs('user.history')" href="{{ route('user.history') }}">
+                Riwayat
+            </x-custom.item-navigation>
         </div>
     </div>
     <div

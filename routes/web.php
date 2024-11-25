@@ -1,6 +1,7 @@
 <?php
 
 use App\Livewire\Pages\User\Home;
+use App\Livewire\Pages\User\LoanHistory;
 use App\Livewire\Pages\User\LoanUser;
 
 use App\Livewire\ShowDataLab;
@@ -18,6 +19,7 @@ Route::middleware(["auth", 'verified'])->group(function () {
     Route::get("user/home", Home::class)->name("user.home");
     Route::get("user/loan", LoanUser::class)->name("user.loan");
     Route::get("user/loan/{id}", LoanUser::class);
+    Route::get("user/history", LoanHistory::class)->name("user.history");
 });
 
 

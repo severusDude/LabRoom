@@ -25,10 +25,6 @@
 <body class="font-sans antialiased">
     <main class="min-h-screen bg-gray-100">
         <livewire:components.navigation />
-        {{-- <x-livewire:sidebar>
-            <x-livewire:sidebar-item :icon="'heroicon-o-home'" text="Home" :active="request()->routeIs('user.home')" />
-            <x-livewire:sidebar-item :icon="'heroicon-o-cog'" text="Settings" />
-        </x-livewire:sidebar> --}}
         <div class="ml-[314px]">
             <div class="px-4 py-8">
                 {{ $slot }}
