@@ -1,6 +1,7 @@
 <div class="flex flex-wrap lg:flex-nowrap bg-white rounded-md shadow-md">
     <div class="w-full lg:w-1/2">
-        <img class="w-full h-[248px] object-cover rounded-md" src="{{ asset('images/bakso.jpeg') }}" alt="image lab">
+        <img class="w-full h-[248px] object-cover rounded-md" src="{{ asset('images/' . $image . '.jpg') }}"
+            alt="image lab">
     </div>
     <div class="py-4 px-6 flex flex-col flex-1">
         @switch($status)

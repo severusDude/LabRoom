@@ -11,6 +11,7 @@ class CardLab extends Component
     public $slug;
     public $id;
     public $data;
+    public $image;
 
 
     public function mount($lab)

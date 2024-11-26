@@ -1,6 +1,7 @@
 <div class="w-full lg:w-[300px] rounded shadow-md pb-2">
     <div>
-        <img class="w-full h-[150px] object-cover rounded-t" src="{{ asset('images/bakso.jpeg') }}" alt="image lab">
+        <img class="w-full h-[150px] object-cover rounded-t" src="{{ asset('images/' . $image['name'] . '.jpg') }}"
+            alt="image lab">
     </div>
     <div class="px-2 py-3 space-y-2 py">
         <div class="space-y-1">
