@@ -14,7 +14,7 @@ class LoanHistory extends Component
     public function mount()
     {
         $this->userId = Auth::id();
-        $this->historyLoan = Loan::with("lab", 'subject', "approval.user")->where("created_by", $this->userId)->get()->all();
+        $this->historyLoan = Loan::with("lab", 'subject', "approval.user")->where("created_by", $this->userId)->orderBy("created_at", "desc")->get()->all();
     }
 
     public function render()
