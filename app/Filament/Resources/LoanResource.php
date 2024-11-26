@@ -14,6 +14,8 @@ use Filament\Resources\Resource;
 use Filament\Support\Enums\ActionSize;
 use Illuminate\Database\Eloquent\Collection;
 use App\Filament\Resources\LoanResource\Pages;
+use Filament\Tables\Filters\Filter;
+use Illuminate\Database\Eloquent\Builder;
 
 class LoanResource extends Resource
 {
@@ -177,7 +179,12 @@ class LoanResource extends Resource
                     }),
             ])
             ->filters([
-                //
+                Filter::make('is_pending')
+                    ->label('Pending')
+                    ->query(fn(Builder $query): Builder => $query->whereHas('approval', function ($query) {
+                        $query->where('approval_status', 'Pending');
+                    }))
+                    ->default(true)
             ])
             ->actions([
                 Tables\Actions\Action::make('reject')
