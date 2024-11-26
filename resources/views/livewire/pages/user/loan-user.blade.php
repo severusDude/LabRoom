@@ -1,4 +1,4 @@
-<div class="mt-4">
+<div class="lg:mt-4 py-20">
     @if (session()->has('message'))
         <div class="flex items-center p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
             role="alert">
@@ -13,7 +13,7 @@
             </div>
         </div>
     @endif
-    <h1 class="text-3xl font-semibold tracking-tighter mb-4 text-slate-700">Ajukan Peminjaman</h1>
+    <h1 class="text-2xl lg:text-3xl font-semibold tracking-tighter mb-4 text-slate-800">Ajukan Peminjaman</h1>
     <div class="flex justify-center items-center">
         <form wire:submit.prevent='onSubmit' class="w-full bg-violet-200 px-8 py-12 space-y-4 rounded">
             {{-- Select Lab Start --}}
@@ -57,7 +57,7 @@
             {{-- Input Tanggal Start --}}
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
-                <div class="relative max-w-sm">
+                <div class="relative lg:max-w-sm">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -66,7 +66,7 @@
                         </svg>
                     </div>
                     <input wire:model='tanggalInput' type="date"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Pilih Tanggal">
                 </div>
             </div>
