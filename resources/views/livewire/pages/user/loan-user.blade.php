@@ -13,7 +13,7 @@
             </div>
         </div>
     @endif
-
+    
     @if (session()->has('error'))
         <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
             role="alert">
@@ -28,7 +28,6 @@
             </div>
         </div>
     @endif
-
     <h1 class="text-2xl lg:text-3xl font-semibold tracking-tighter mb-4 text-slate-800">Ajukan Peminjaman</h1>
     <div class="flex justify-center items-center">
         <form wire:submit.prevent='onSubmit' class="w-full bg-violet-200 px-8 py-12 space-y-4 rounded">
