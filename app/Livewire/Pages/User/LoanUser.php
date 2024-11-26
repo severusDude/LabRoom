@@ -6,6 +6,7 @@ use App\Models\Lab;
 use App\Models\Loan;
 use App\Models\Subject;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
@@ -83,17 +84,22 @@ class LoanUser extends Component
         $this->formattedJamMulai = Carbon::parse($dateMulai)->toDateTimeString();
         $this->formattedJamBerakhir = Carbon::parse($dateBerakhir)->toDateTimeString();
 
-        Loan::create([
-            'lab_id' => $this->labInput,
-            'created_by' => $this->user,
-            'subject_id' => $this->mataKuliahInput,
-            'effect_date' => $this->formattedJamMulai,
-            'end_date' => $this->formattedJamBerakhir,
-        ]);
+        try {
 
-        $this->isSubmitting = false; // Setelah selesai submit
+            Loan::create([
+                'lab_id' => $this->labInput,
+                'created_by' => $this->user,
+                'subject_id' => $this->mataKuliahInput,
+                'effect_date' => $this->formattedJamMulai,
+                'end_date' => $this->formattedJamBerakhir,
+            ]);
+            session()->flash('message', 'Permohonan Peminjaman Berhasil di kirim!');
+        } catch (Exception $e) {
+            session()->flash('error', 'Pengajuan Gagal, Harap Masukan Input Yang Benar!');
+        } finally {
 
-        session()->flash('message', 'Permohonan Peminjaman Berhasil di kirim!');
+            $this->isSubmitting = false; // Setelah selesai submit
+        }
     }
 
     public function render()
