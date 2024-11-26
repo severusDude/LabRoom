@@ -1,4 +1,4 @@
-<div class="mt-4">
+<div class="lg:pt-0 pt-20">
     @if (session()->has('message'))
         <div class="flex items-center p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
             role="alert">
@@ -13,7 +13,7 @@
             </div>
         </div>
     @endif
-    <h1 class="text-3xl font-semibold tracking-tighter mb-4 text-slate-700">Ajukan Peminjaman</h1>
+    <h1 class="text-2xl lg:text-3xl font-semibold tracking-tighter mb-4 text-slate-800">Ajukan Peminjaman</h1>
     <div class="flex justify-center items-center">
         <form wire:submit.prevent='onSubmit' class="w-full bg-violet-200 px-8 py-12 space-y-4 rounded">
             {{-- Select Lab Start --}}
@@ -21,7 +21,7 @@
                 <label for="lab"
                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Laboratorium</label>
                 <select id="lab" wire:model='labInput'
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    class="bg-gray-50 border text-xs  border-gray-300 text-gray-900 lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option disabled>Pilih Laboratorium</option>
                     @if (isset($lab))
                         <option selected value="{{ $lab->id }}">{{ $lab->lab_name }}</option>
@@ -45,7 +45,7 @@
                 <label for="mata_kuliah" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Mata
                     Kuliah</label>
                 <select id="mata_kuliah" wire:model='mataKuliahInput'
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option disabled selected>Pilih Mata Kuliah</option>
                     @foreach ($mata_kuliah as $item)
                         <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -57,7 +57,7 @@
             {{-- Input Tanggal Start --}}
             <div>
                 <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tanggal</label>
-                <div class="relative max-w-sm">
+                <div class="relative lg:max-w-sm">
                     <div class="absolute inset-y-0 start-0 flex items-center ps-3.5 pointer-events-none">
                         <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
                             xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
@@ -66,7 +66,7 @@
                         </svg>
                     </div>
                     <input wire:model='tanggalInput' type="date"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        class=" bg-gray-50 border border-gray-300 text-gray-900 lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 text-xs dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Pilih Tanggal">
                 </div>
             </div>
@@ -78,7 +78,7 @@
                     <label for="jam_mulai" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jam
                         Mulai</label>
                     <select id="jam_mulai" wire:model='jamMulaiInput'
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="" selected>Pilih Jam Mulai</option>
                         @foreach ($jam as $item)
                             <option value="{{ $item['value'] }}">{{ $item['value'] }}</option>
@@ -89,7 +89,7 @@
                     <label for="jam_berakhir" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jam
                         Berakhir</label>
                     <select id="jam_berakhir" wire:model='jamBerakhirInput'
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-xs lg:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                         <option value="" selected>Pilih Jam Berakhir</option>
                         @foreach ($jam as $item)
                             <option value="{{ $item['value'] }}">{{ $item['value'] }}</option>
@@ -101,10 +101,10 @@
 
             <div class="mt-2">
                 <button type="submit" wire:loading.remove
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ajukan</button>
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ajukan</button>
 
                 <button disabled type="button" wire:loading
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
+                    class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
                     <svg aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
                         viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path

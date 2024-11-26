@@ -25,8 +25,8 @@
 <body class="font-sans antialiased">
     <main class="min-h-screen bg-gray-100">
         <livewire:components.navigation />
-        <div class="ml-[314px]">
-            <div class="px-4 py-8">
+        <div class="lg:ml-[314px]">
+            <div class="lg:px-4 lg:py-8 px-2 py-4">
                 {{ $slot }}
             </div>
         </div>

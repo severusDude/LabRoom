@@ -1,10 +1,9 @@
-<div class="w-[300px] rounded shadow-md pb-2">
+<div class="w-full lg:w-[300px] rounded shadow-md pb-2">
     <div>
         <img class="w-full h-[150px] object-cover rounded-t" src="{{ asset('images/bakso.jpeg') }}" alt="image lab">
     </div>
     <div class="px-2 py-3 space-y-2 py">
         <div class="space-y-1">
-            {{-- <a href="/lab/{{ $id }}" class="text-xl font-bold">{{ $lab->lab_name }}</a> --}}
             <h2 class="text-xl font-bold">{{ $lab->lab_name }}</h2>
             <p class="text-sm">{{ $lab->location }}</p>
         </div>
@@ -26,8 +25,8 @@
         {{-- Button start --}}
         <div>
             <button wire:click="redirectTo({{ $id }})"
-                class="py-2 px-4 rounded bg-emerald-500 w-full font-semibold flex items-center justify-center gap-2 hover:bg-emerald-500/60">
-                <h2>Pinjam</h2>
+                class="py-2 px-4 rounded bg-emerald-500 w-full  flex items-center justify-center gap-2 hover:bg-emerald-500/60">
+                <h2 class="font-medium lg:font-semibold text-lg">Pinjam</h2>
                 <x-heroicon-o-plus class="h-5 w-5 text-white" />
             </button>
         </div>
