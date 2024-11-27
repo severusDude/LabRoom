@@ -10,6 +10,12 @@ export default {
     ],
 
     theme: {
+        colors: {
+            "primary": {
+                "700": "#006ca6",
+                "800": "#035b89",
+            },
+        },
         extend: {
             fontFamily: {
                 sans: ["Poppins", ...defaultTheme.fontFamily.sans],
