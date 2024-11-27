@@ -2,24 +2,23 @@
 
 namespace App\Livewire\Components;
 
-use Illuminate\View\ComponentAttributeBag;
 use Livewire\Component;
 
 class Status extends Component
 {
     public string $label;
+    public string $class;
     public bool $large;
 
-    public function mount($label = 'Label', $large = false)
+    public function mount($label = 'Label', $class = '', $large = false)
     {
         $this->label = trim($label);
+        $this->class = $class;
         $this->large = $large;
     }
 
     public function render()
     {
-        return view('livewire.components.status', [
-            'attributes' => new ComponentAttributeBag()
-        ]);
+        return view('livewire.components.status');
     }
 }
