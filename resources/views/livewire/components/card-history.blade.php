@@ -1,4 +1,4 @@
-<div class="flex flex-col items-start overflow-hidden bg-white shadow-md md:flex-row rounded-xl">
+<div class="flex flex-col items-start flex-initial overflow-hidden bg-white shadow-md md:flex-row rounded-xl">
     <div class="flex self-stretch flex-1">
         <img class="object-cover w-full" src="{{ asset('images/' . $image . '.jpg') }}"
             alt="image lab">
@@ -16,7 +16,7 @@
                 @break
 
                 @case('Approved')
-                    <livewire:components.status label="Approved" class="text-green-400 border-green-400" :large="true">
+                    <livewire:components.status label="Approved" class="text-green-600 border-green-600" :large="true">
                     {{-- <div class="inline text-sm font-semibold border-[1px] border-green-500 px-6 py-1 rounded-lg self-end">
                         {{ $status }}
                     </div> --}}
@@ -52,7 +52,9 @@
                 <h1 class="text-sm font-medium text-center text-gray-800/70">Repeat</h1>
                 <p class="text-base font-semibold text-center">{{ $history->is_repeat ? 'Yes' : 'No' }}</p>
             </div>
-            <button class="px-6 py-2 text-white bg-red-800 rounded-lg">Cancel</button>
+            @if ($status == 'Pending')
+                <button class="px-6 py-2 text-white bg-red-800 rounded-lg">Cancel</button>
+            @endif
         </div>
 {{--
         <div class="mt-6 lg:mt-2">
