@@ -2,12 +2,14 @@
 
 namespace App\Livewire\Components;
 
+use App\Models\Lab;
 use Livewire\Component;
 use Illuminate\Support\Str;
 
 class CardLab extends Component
 {
-    public $lab;
+    public Lab $lab;
+    public $status;
     public $slug;
     public $id;
     public $data;
@@ -17,6 +19,7 @@ class CardLab extends Component
     public function mount($lab)
     {
         $this->lab = $lab;
+        $this->status = $lab->getAvailability();
         $this->slug = Str::slug($lab->lab_name);
         $this->id = $lab->id;
         $this->data = $lab->lab_name;
