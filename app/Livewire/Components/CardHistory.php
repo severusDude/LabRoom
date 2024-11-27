@@ -8,13 +8,17 @@ use Livewire\Component;
 class CardHistory extends Component
 {
     public $history;
+    public $date;
     public $startTime;
     public $endTime;
     public $status;
     public $approvedBy;
     public $image;
+
+
     public function mount()
     {
+        $this->date = Carbon::parse($this->history->effect_date)->format('l, d F');
         $this->startTime = Carbon::parse($this->history->effect_date)->format('H:i');
         $this->endTime = Carbon::parse($this->history->end_date)->format('H:i');
         $this->status = $this->history->approval->approval_status;

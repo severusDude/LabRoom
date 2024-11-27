@@ -22,7 +22,7 @@ class LoanHistory extends Component
         return view('livewire.pages.user.loan-history', [
             'historyLoan' => Loan::with("lab", 'subject', "approval.user")
                 ->where("created_by", $this->userId)
-                ->orderBy("created_at", "desc")
+                ->orderBy("id", "asc")
                 ->paginate(5)
         ]);
     }
