@@ -1,4 +1,4 @@
-<div class="lg:pt-0 pt-20">
+<div class="pt-20 lg:pt-0">
     @if (session()->has('message'))
         <div class="flex items-center p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
             role="alert">
@@ -13,7 +13,7 @@
             </div>
         </div>
     @endif
-    
+
     @if (session()->has('error'))
         <div class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
             role="alert">
@@ -28,9 +28,9 @@
             </div>
         </div>
     @endif
-    <h1 class="text-2xl lg:text-3xl font-semibold tracking-tighter mb-4 text-slate-800">Ajukan Peminjaman</h1>
-    <div class="flex justify-center items-center">
-        <form wire:submit.prevent='onSubmit' class="w-full bg-violet-200 px-8 py-12 space-y-4 rounded">
+    <h1 class="mb-4 text-2xl font-semibold tracking-tighter lg:text-3xl text-slate-800">Ajukan Peminjaman</h1>
+    <div class="flex items-center justify-center">
+        <form wire:submit.prevent='onSubmit' class="w-full px-8 py-12 space-y-4 rounded bg-violet-200">
             {{-- Select Lab Start --}}
             <div>
                 <label for="lab"
@@ -116,11 +116,11 @@
 
             <div class="mt-2">
                 <button type="submit" wire:loading.remove
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Ajukan</button>
+                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-primary-700 dark:hover:bg-blue-700 dark:focus:bg-primary-800 transition-all ease-in-out">Ajukan</button>
 
                 <button disabled type="button" wire:loading
-                    class="text-white w-full bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 inline-flex items-center">
-                    <svg aria-hidden="true" role="status" class="inline w-4 h-4 me-3 text-white animate-spin"
+                    class="text-white w-full bg-primary-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 dark:bg-primary-700 dark:hover:bg-blue-700 dark:focus:bg-primary-800 inline-flex items-center">
+                    <svg aria-hidden="true" role="status" class="inline w-4 h-4 text-white me-3 animate-spin"
                         viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
