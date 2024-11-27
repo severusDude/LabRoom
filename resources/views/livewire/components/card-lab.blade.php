@@ -11,9 +11,9 @@
             </div>
             <div class="flex items-end justify-end flex-1 w-1/4">
                 @if ($status)
-                    <livewire:components.status label="Berlangsung" class="text-yellow-400 border-yellow-400">
-                @else
                     <livewire:components.status label="Tersedia" class="text-primary-700 border-primary-700">
+                @else
+                    <livewire:components.status label="Berlangsung" class="text-yellow-400 border-yellow-400">
                 @endif
             </div>
         </div>
