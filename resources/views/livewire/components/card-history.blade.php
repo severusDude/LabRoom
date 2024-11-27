@@ -17,16 +17,10 @@
 
                 @case('Approved')
                     <livewire:components.status label="Approved" class="text-green-600 border-green-600" :large="true">
-                    {{-- <div class="inline text-sm font-semibold border-[1px] border-green-500 px-6 py-1 rounded-lg self-end">
-                        {{ $status }}
-                    </div> --}}
                 @break
 
                 @case('Rejected')
                     <livewire:components.status label="Rejected" class="text-red-700 border-red-700" :large="true">
-                    {{-- <div class="inline text-sm font-semibold border-[1px] border-red-600 px-6 py-1 rounded-lg self-end">
-                        {{ $status }}
-                    </div> --}}
                 @break
             @endswitch
         </div>
@@ -56,28 +50,5 @@
                 <button class="px-6 py-2 text-white bg-red-800 rounded-lg">Cancel</button>
             @endif
         </div>
-{{--
-        <div class="mt-6 lg:mt-2">
-            <h1 class="text-2xl font-semibold text-slate-800">{{ $history->lab->lab_name }}</h1>
-            <p class="text-lg tracking-tight text-slate-800/70">{{ $history->subject->name }}</p>
-        </div>
-        <div class="mt-4 text-lg font-bold">
-            {{ $startTime }} - {{ $endTime }}
-        </div>
-        <div class="flex items-center justify-between w-full py-4 mt-auto">
-            <div class="flex flex-col items-center">
-                <h1 class="text-sm text-slate-800/80">Persetujuan</h1>
-                <p class="text-sm text-slate-900">
-                    {{ $approvedBy }}
-                </p>
-            </div>
-            <button class="px-4 py-2 bg-red-500 rounded-lg">
-                Report
-            </button>
-            <div class="flex flex-col items-center">
-                <h1 class="text-sm text-slate-800/80">Repeat</h1>
-                <p class="text-sm text-slate-900">No</p>
-            </div>
-        </div> --}}
     </div>
 </div>
