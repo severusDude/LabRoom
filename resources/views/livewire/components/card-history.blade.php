@@ -1,13 +1,13 @@
-<div class="flex flex-wrap items-start overflow-hidden bg-white shadow-md lg:flex-nowrap rounded-xl">
+<div class="flex flex-col items-start overflow-hidden bg-white shadow-md md:flex-row rounded-xl">
     <div class="flex self-stretch flex-1">
-        <img class="object-fill w-full" src="{{ asset('images/' . $image . '.jpg') }}"
+        <img class="object-cover w-full" src="{{ asset('images/' . $image . '.jpg') }}"
             alt="image lab">
     </div>
     {{-- <div class="self-stretch flex-1 lg:w-1/2 grow">
         <img class="object-cover w-full h-[284px] rounded-l-xl" src="{{ asset('images/' . $image . '.jpg') }}"
             alt="image lab">
     </div> --}}
-    <div class="flex flex-col flex-1 gap-6 p-5 grow lg:flex-nowrap">
+    <div class="flex flex-col flex-1 w-full gap-6 p-5 grow lg:flex-nowrap">
         <div class="flex flex-wrap items-start self-stretch gap-4 lg:flex-nowrap md:gap-0 md:justify-between">
             <h1 class="text-2xl font-semibold text-slate-800 leading-[27px]">Peminjaman {{ $history->id }}</h1>
             @switch($status)
@@ -46,7 +46,7 @@
         <div class="flex items-center justify-center flex-1 gap-[16px] self-stretch">
             <div class="flex flex-col items-center flex-1 gap-2">
                 <h1 class="text-sm font-medium text-center text-gray-800/70">Persetujuan Oleh</h1>
-                <p class="text-base font-semibold text-center">{{ $history->approval->approved_by ?? '...' }}</p>
+                <p class="text-base font-semibold text-center">{{ $approvedBy ?? '...' }}</p>
             </div>
             <div class="flex flex-col items-center flex-1 gap-2">
                 <h1 class="text-sm font-medium text-center text-gray-800/70">Repeat</h1>
