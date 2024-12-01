@@ -19,7 +19,6 @@ class LoanUser extends Component
     public $mata_kuliah;
     public $jam;
     public $user;
-
     public $labInput;
     public $mataKuliahInput;
     public $tanggalInput;
@@ -27,13 +26,13 @@ class LoanUser extends Component
     public $jamBerakhirInput = null;
     public $formattedJamMulai;
     public $formattedJamBerakhir;
-
     public function mount($id = null)
     {
         $this->id = $id;
         $this->lab = Lab::find($id);
         $this->labs = Lab::all();
         $this->mata_kuliah = Subject::all();
+
 
 
         $this->jam = [
@@ -77,12 +76,32 @@ class LoanUser extends Component
 
     public function onSubmit()
     {
+
+
+        $partsMulai = explode(':', $this->jamMulaiInput);
+        $partsBerakhir = explode(':', $this->jamBerakhirInput);
+        if ($partsMulai > $partsBerakhir) {
+            session()->flash('error', 'Pengajuan Gagal, Jam Mulai Tidak Boleh Melebihi Jam Berakhir');
+            return;
+        }
+
+
+
         $this->isSubmitting = true;
         $dateMulai = $this->tanggalInput . " " . $this->jamMulaiInput;
         $dateBerakhir = $this->tanggalInput . " " . $this->jamBerakhirInput;
 
         $this->formattedJamMulai = Carbon::parse($dateMulai)->toDateTimeString();
         $this->formattedJamBerakhir = Carbon::parse($dateBerakhir)->toDateTimeString();
+
+        $isEffection = Loan::approved()->where('effect_date', '<=', $this->formattedJamMulai)
+            ->where('end_date', '>=', $this->formattedJamMulai)
+            ->first();
+
+        if ($isEffection) {
+            session()->flash('error', 'Pengajuan Peminjaman Gagal, Waktu Mulai Yang Dipilih Berada Dalam Periode Peminjaman Yang Telah Disetujui');
+            return;
+        }
 
         try {
 

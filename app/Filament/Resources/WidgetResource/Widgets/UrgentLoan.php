@@ -20,9 +20,10 @@ class UrgentLoan extends BaseWidget
     public function table(Table $table): Table
     {
         $now = Carbon::now();
-        $tenHoursBefore = $now->copy()->subHours(1);  // 10 jam sebelumnya
-        $tenHoursAfter = $now->copy()->addHours(1);   // 10 jam setelahnya
-        // dd(LoanResource::getEloquentQuery()->whereBetween('effect_date', [$tenHoursBefore, $tenHoursAfter]));
+      
+        $tenHoursBefore = $now->copy()->subMinutes(30);
+        $tenHoursAfter = $now->copy()->addMinutes(30);
+
         return $table
             ->query(
                 LoanResource::getEloquentQuery()->whereBetween('effect_date', [$tenHoursBefore, $tenHoursAfter])
