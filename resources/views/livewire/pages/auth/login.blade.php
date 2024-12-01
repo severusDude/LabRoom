@@ -52,7 +52,6 @@ new #[Layout('layouts.guest')] class extends Component {
         </div>
     </nav>
 
-
     <div class="lg:ml-[314px] min-h-screen flex items-center justify-center">
         <div class="w-full sm:max-w-lg ">
             <h1 class="my-8 text-3xl font-bold tracking-tighter text-center">Masuk</h1>
@@ -66,12 +65,12 @@ new #[Layout('layouts.guest')] class extends Component {
 
                 <div class="mt-4">
                     <x-input-label for="password" :value="__('Password')" />
-
                     <x-text-input wire:model="form.password" id="password" class="block mt-1 w-full" type="password"
                         name="password" autocomplete="current-password" />
 
                     <x-input-error :messages="$errors->get('form.password')" class="mt-2" />
                 </div>
+
 
                 <div class="flex flex-col items-end justify-end mt-4 space-y-2">
                     @if (Route::has('password.request'))

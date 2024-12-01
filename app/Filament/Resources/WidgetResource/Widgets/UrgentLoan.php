@@ -20,6 +20,7 @@ class UrgentLoan extends BaseWidget
     public function table(Table $table): Table
     {
         $now = Carbon::now();
+      
         $tenHoursBefore = $now->copy()->subMinutes(30);
         $tenHoursAfter = $now->copy()->addMinutes(30);
 
