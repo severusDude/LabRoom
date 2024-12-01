@@ -39,6 +39,15 @@ class Loan extends Model
         return $this->belongsTo(Subject::class);
     }
 
+    public function scopeApproved($query)
+    {
+
+        return $query->whereHas("approval", function ($query) {
+            $query->where('approval_status', 'Approved');
+        });
+    }
+
+
     protected static function booted(): void
     {
 

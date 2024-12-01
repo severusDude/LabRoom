@@ -37,11 +37,15 @@ class LabResource extends Resource
             ->schema([
                 TextInput::make("lab_name")
                     ->label("Nama Laboratorium")
-                    ->columnSpan(2),
-                RichEditor::make("lab_desc")->label("Kode Laboratorium")
-                    ->columnSpan(2),
-                TextInput::make("location")->label("Lokasi Laboratorium"),
-                TextInput::make("capacity")->numeric()->label("Kapasitas Laboratorium"),
+                    ->columnSpan(2)
+                    ->required(),
+                RichEditor::make("lab_desc")->label("Deskripsi Laboratorium")
+                    ->columnSpan(2)
+                    ->required(),
+                TextInput::make("location")->label("Lokasi Laboratorium")
+                    ->required(),
+                TextInput::make("capacity")->numeric()->label("Kapasitas Laboratorium")
+                    ->required(),
             ]);
     }
 

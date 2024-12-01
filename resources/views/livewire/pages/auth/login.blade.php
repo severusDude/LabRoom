@@ -4,6 +4,7 @@ use App\Livewire\Forms\LoginForm;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\Layout;
 use Livewire\Volt\Component;
+use Illuminate\Validation\ValidationException;
 
 new #[Layout('layouts.guest')] class extends Component {
     public LoginForm $form;
@@ -26,6 +27,12 @@ new #[Layout('layouts.guest')] class extends Component {
                 'form.password.min' => 'Password harus memiliki minimal :min karakter.',
             ],
         );
+
+        if (!Auth::attempt(['email' => $this->form->email, 'password' => $this->form->password])) {
+            throw ValidationException::withMessages([
+                'form.email' => 'Email atau password yang Anda masukkan salah.',
+            ]);
+        }
 
         $this->form->authenticate();
 
